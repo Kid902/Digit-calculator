@@ -5,6 +5,8 @@ Super Retro Calculator for Number System Operations
 
 A Java Swing-based calculator with a retro game-style UI that can perform binary arithmetic and number system conversions. Inspired by old-school terminals with a green-on-black aesthetic.
 
+<img width="691" height="513" alt="project1" src="https://github.com/user-attachments/assets/1b5f901c-ff4d-4955-9c30-18dab950e6ff" />
+
 
 ## Features
 
