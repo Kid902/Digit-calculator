@@ -1,0 +1,151 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class SuperCalculator extends JFrame {
+
+    private JTextField input1, input2, output;
+    private JComboBox<String> baseBox;
+
+    public SuperCalculator() {
+        // Frame setup
+        setTitle("🎮 SUPER CALCULATOR 🎮");
+        setSize(700, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setBackground(Color.BLACK);
+        setLayout(new BorderLayout());
+
+        // Title
+        JLabel title = new JLabel("SUPER CALCULATOR", SwingConstants.CENTER);
+        title.setForeground(Color.GREEN);
+        title.setFont(new Font("Monospaced", Font.BOLD, 32));
+        add(title, BorderLayout.NORTH);
+
+        // Center panel (inputs + buttons)
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new GridLayout(6, 1, 10, 10));
+        centerPanel.setBackground(Color.BLACK);
+
+        input1 = new JTextField();
+        input2 = new JTextField();
+        input1.setFont(new Font("Monospaced", Font.PLAIN, 20));
+        input2.setFont(new Font("Monospaced", Font.PLAIN, 20));
+        input1.setBackground(Color.BLACK);
+        input1.setForeground(Color.GREEN);
+        input2.setBackground(Color.BLACK);
+        input2.setForeground(Color.GREEN);
+
+        centerPanel.add(new JLabel("Enter First Number:", SwingConstants.CENTER));
+        centerPanel.add(input1);
+        centerPanel.add(new JLabel("Enter Second Number:", SwingConstants.CENTER));
+        centerPanel.add(input2);
+
+        // Dropdown for conversion
+        String[] bases = {"Decimal to Binary", "Decimal to Hex", "Binary to Decimal", "Hex to Decimal"};
+        baseBox = new JComboBox<>(bases);
+        baseBox.setBackground(Color.BLACK);
+        baseBox.setForeground(Color.GREEN);
+        baseBox.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        centerPanel.add(baseBox);
+
+        add(centerPanel, BorderLayout.CENTER);
+
+        // Buttons panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(2, 2, 10, 10));
+        buttonPanel.setBackground(Color.BLACK);
+
+        JButton addBtn = retroButton("BINARY ADD");
+        JButton subBtn = retroButton("BINARY SUB");
+        JButton convertBtn = retroButton("CONVERT");
+        JButton clearBtn = retroButton("CLEAR");
+
+        buttonPanel.add(addBtn);
+        buttonPanel.add(subBtn);
+        buttonPanel.add(convertBtn);
+        buttonPanel.add(clearBtn);
+
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        // Output
+        output = new JTextField();
+        output.setEditable(false);
+        output.setFont(new Font("Monospaced", Font.BOLD, 22));
+        output.setBackground(Color.BLACK);
+        output.setForeground(Color.GREEN);
+        add(output, BorderLayout.NORTH);
+
+        // Actions
+        addBtn.addActionListener(e -> binaryAdd());
+        subBtn.addActionListener(e -> binarySub());
+        convertBtn.addActionListener(e -> convert());
+        clearBtn.addActionListener(e -> {
+            input1.setText("");
+            input2.setText("");
+            output.setText("");
+        });
+
+        setVisible(true);
+    }
+
+    // Retro Button style
+    private JButton retroButton(String text) {
+        JButton btn = new JButton(text);
+        btn.setBackground(Color.BLACK);
+        btn.setForeground(Color.GREEN);
+        btn.setFont(new Font("Monospaced", Font.BOLD, 16));
+        return btn;
+    }
+
+    // Binary addition
+    private void binaryAdd() {
+        try {
+            int n1 = Integer.parseInt(input1.getText(), 2);
+            int n2 = Integer.parseInt(input2.getText(), 2);
+            int sum = n1 + n2;
+            output.setText("Result: " + Integer.toBinaryString(sum));
+        } catch (Exception e) {
+            output.setText("Error: Enter valid binary numbers!");
+        }
+    }
+
+    // Binary subtraction
+    private void binarySub() {
+        try {
+            int n1 = Integer.parseInt(input1.getText(), 2);
+            int n2 = Integer.parseInt(input2.getText(), 2);
+            int diff = n1 - n2;
+            output.setText("Result: " + Integer.toBinaryString(diff));
+        } catch (Exception e) {
+            output.setText("Error: Enter valid binary numbers!");
+        }
+    }
+
+    // Conversion logic
+    private void convert() {
+        try {
+            String choice = (String) baseBox.getSelectedItem();
+            String val = input1.getText();
+
+            switch (choice) {
+                case "Decimal to Binary":
+                    output.setText("Result: " + Integer.toBinaryString(Integer.parseInt(val)));
+                    break;
+                case "Decimal to Hex":
+                    output.setText("Result: " + Integer.toHexString(Integer.parseInt(val)).toUpperCase());
+                    break;
+                case "Binary to Decimal":
+                    output.setText("Result: " + Integer.parseInt(val, 2));
+                    break;
+                case "Hex to Decimal":
+                    output.setText("Result: " + Integer.parseInt(val, 16));
+                    break;
+            }
+        } catch (Exception e) {
+            output.setText("Error: Invalid input for conversion!");
+        }
+    }
+
+    public static void main(String[] args) {
+        new SuperCalculator();
+    }
+}
