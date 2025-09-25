@@ -1,3 +1,11 @@
+
+# Digit Calculator
+
+Super Retro Calculator for Number System Operations
+
+A Java Swing-based calculator with a retro game-style UI that can perform binary arithmetic and number system conversions. Inspired by old-school terminals with a green-on-black aesthetic.
+
+
 ## Features
 
 - 🎮 Binary Operations
@@ -39,10 +47,11 @@
 - Java 8+
 
 - Swing GUI framework
-- 
+
 ## Flow Chart
 
 <img width="5742" height="2570" alt="image" src="https://github.com/user-attachments/assets/0ff52e72-c736-45e2-8090-d39bad96cf34" />
+
 
 
 
